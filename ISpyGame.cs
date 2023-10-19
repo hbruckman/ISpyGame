@@ -55,12 +55,14 @@ public class ISpyGame
 		if (!File.Exists(filename))
 		{
 			Console.Write("Downloading word list...");
+
 			string url = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
 
 			using HttpClient client = new HttpClient();
 			using FileStream fs = new FileStream(filename, FileMode.Create);
 
 			client.GetStreamAsync(url).Result.CopyTo(fs);
+
 			Console.WriteLine("done!");
 		}
 
@@ -75,7 +77,7 @@ public class ISpyGame
 		selectedWordInitialLetter = char.ToLower(selectedWord[0]);
 
 		int s = words.FindIndex(x => x.StartsWith(selectedWordInitialLetter));
-		int e = words.FindLastIndex(x => x.StartsWith(selectedWordInitialLetter));
+		int e = words.FindLastIndex(x => x.StartsWith(selectedWordInitialLetter)) + 1;
 		int m = Math.Min(10, e - s);
 
 		for (int i = 0; i < m; i++)
